@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.json({ message: "welcome to tut"});
 })
 
-const db = require("./app/models");
+const db = require("./app/models/index");
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -26,6 +26,8 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-const PORT = process.env.PORT || 8080;
+require("./app/routes/tutorial.route")(app);
+
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => { console.log("running on ", PORT) });
